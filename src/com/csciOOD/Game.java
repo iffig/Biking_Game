@@ -1,9 +1,20 @@
 package com.csciOOD;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
-import com.csciOOD.Screen;
+import com.csciOOD.BouncingObject;
 
-public class Game extends Screen {
+public class Game extends JPanel {
+    private BouncingObject demoRect;
 
+    public Game() {
+        demoRect = new BouncingObject();
+    }
+
+    public void updateGame(){
+        demoRect.update();
+    }
+
+    public void reRender(){
+        demoRect.repaint();
+    }
 }
