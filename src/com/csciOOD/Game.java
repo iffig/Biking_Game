@@ -1,20 +1,61 @@
 package com.csciOOD;
 
 import javax.swing.*;
+import java.awt.*;
+
 import com.csciOOD.BouncingObject;
 
-public class Game extends JPanel {
-    private BouncingObject demoRect;
+public class Game extends JPanel implements Runnable {
+    private BouncingObject demoRect = new BouncingObject();
+    float interpolation;
+
+    // Top-level state for control flow
+    private boolean gameRunning = true;
+    private boolean isPaused = false;
 
     public Game() {
-        demoRect = new BouncingObject();
+        setOpaque(true);
+        setBounds(0,0,800,800);
     }
 
-    public void updateGame(){
+    public void pause() {
+        isPaused = !isPaused;
+    }
+
+    public void run(){
+        gameLoop();
+    }
+
+    // TODO: mitigate death spiral and lag scenarios
+    private void gameLoop() {
+        // Shoot for the Stars!
+        double fpsLimit = 120;
+        double updateInterval = 1000000000 / fpsLimit; // Should / could be set to something else. Lower? higher?
+        double lastUpdateTime = System.nanoTime();
+
+        while (gameRunning) {
+            double now = System.nanoTime();
+            if (!isPaused) {
+
+                while(now - lastUpdateTime > updateInterval) {
+                    lastUpdateTime += updateInterval;
+                    updateGame();
+                }
+
+                repaint();
+            }
+        }
+    }
+
+    // Any methods that change game state in here
+    public void updateGame() {
         demoRect.update();
     }
 
-    public void reRender(){
-        demoRect.repaint();
+    public void paintComponent(Graphics g){
+        // This is where we invoke the interpolation values to blend animation
+        g.drawRect((int) demoRect.x, (int) demoRect.y, demoRect.width, demoRect.height);
+        g.setColor(Color.RED);
+        g.fillRect((int) demoRect.x, (int) demoRect.y, demoRect.width, demoRect.height);
     }
 }
