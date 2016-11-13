@@ -6,19 +6,21 @@ import com.csciOOD.Game;
 import com.csciOOD.Menu;
 
 public class Screen extends JFrame {
+    // Settings for window
+    Container contentPane = getContentPane();
     // Internal class to render to screen (constraint of JFrame -> JPanel)
     private MainPannel content = new MainPannel();
     // Pause, menu, high-schores
-    private Menu menu = new Menu();
+    private Menu menu = new Menu(contentPane);
     // Top-level object responsible for game state
-    private Game gameInstance = new Game();
+    private Game gameInstance = new Game(contentPane);
 
     // JFrame is our top-level container, inside of which we render panes
     public Screen(){
         // Not TOTALLY sure how much this does for us...
         super("Colorado Biking Game");
+        System.out.println("ad");
         // Settings for window
-        Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
         // Upper pane for time and score and what not
         JPanel headerPanel = new JPanel();
@@ -28,14 +30,16 @@ public class Screen extends JFrame {
         contentPane.add(content, BorderLayout.CENTER);
 
         setSize(800, 800);
-
+        System.out.println("Constructed...");
         // Start our gameLoop
         Thread mainThread = new Thread(content);
         mainThread.start();
     }
 
     public static void main(String[] args) {
+        System.out.println("ojayy");
         Screen gameScreen = new Screen();
+        System.out.println("Should have new screen?");
         gameScreen.setVisible(true);
     }
 
@@ -48,6 +52,7 @@ public class Screen extends JFrame {
         public MainPannel() {}
 
         public void run(){
+            System.out.println("run engaged!");
             gameLoop();
         }
 

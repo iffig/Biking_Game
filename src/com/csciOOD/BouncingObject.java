@@ -1,17 +1,19 @@
 package com.csciOOD;
 import com.csciOOD.Game;
+
+import javax.swing.*;
 import java.awt.*;
 
-public class BouncingObject extends Game {
+public class BouncingObject extends JPanel {
     private float x = 0;
     private float y = 0;
-    private float lastX = 0;
-    private float lastY = 0;
     private int width = 42;
     private int height = 42;
     private int speed = 20;
     private int xVelocity = (int) Math.random() * speed;
     private int yVelocity = (int) Math.random() * speed;
+
+    public BouncingObject(Container contentPane){}
 
     private boolean wallWasHit(){
         boolean leftWallHit = x + width / 2 >= getWidth();
@@ -28,8 +30,6 @@ public class BouncingObject extends Game {
     }
 
     public void update(){
-        lastX = x;
-        lastY = y;
         x += xVelocity;
         y += yVelocity;
 
