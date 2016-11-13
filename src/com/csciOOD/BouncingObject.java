@@ -5,15 +5,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BouncingObject extends JPanel {
-    private float x = 0;
-    private float y = 0;
-    private int width = 42;
-    private int height = 42;
-    private int speed = 20;
-    private int xVelocity = (int) Math.random() * speed;
-    private int yVelocity = (int) Math.random() * speed;
+    public float x = 10;
+    public float y = 10;
+    public int width = 42;
+    public int height = 42;
+    public int speed = 20;
+    public int xVelocity = 1;
+    public int yVelocity = 1;
 
-    public BouncingObject(Container contentPane){}
+    public BouncingObject(){}
 
     private boolean wallWasHit(){
         boolean leftWallHit = x + width / 2 >= getWidth();
@@ -32,7 +32,7 @@ public class BouncingObject extends JPanel {
     public void update(){
         x += xVelocity;
         y += yVelocity;
-
+        System.out.println("x val " + xVelocity);
         // If we hit a wall...
         if (wallWasHit()) {
             // reverse direction
@@ -43,14 +43,5 @@ public class BouncingObject extends JPanel {
             yVelocity = -yVelocity;
         }
 
-    }
-
-    // This is where you can do your sprite animations
-    protected void paintComponent(Graphics g){
-        // Not using interpolation... casting like a mofo, because this is just
-        // for illustrative purposes.
-        g.drawRect((int) x, (int) y, width, height);
-        g.setColor(Color.RED);
-        g.fillOval((int) x, (int) y, width, height);
     }
 }
