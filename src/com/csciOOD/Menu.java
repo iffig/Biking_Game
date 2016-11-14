@@ -8,5 +8,4 @@ public class Menu extends JPanel {
     private boolean isPaused = false;
 
     public Menu(Container contentPane){}
-
 }
