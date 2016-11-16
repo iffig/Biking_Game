@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-
 import com.csciOOD.Game;
 import com.csciOOD.Menu;
 
@@ -18,7 +17,6 @@ public class Screen extends JFrame {
     private Menu menu = new Menu(contentPane);
     // Area for score/timer/heath etc
     JPanel headerPanel = new JPanel();
-
 
     // JFrame is our top-level container, inside of which we render panes
     public Screen(){
@@ -51,7 +49,6 @@ public class Screen extends JFrame {
         gameScreen.setVisible(true);
     }
 
-
     private void bindKeys(){
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
             @Override
@@ -79,12 +76,11 @@ public class Screen extends JFrame {
                 if (e.getID() == KeyEvent.KEY_RELEASED && e.getKeyCode() == KeyEvent.VK_DOWN){
                     content.demoRect.unDuck();
                 }
+
                 return false;
             }
         });
     }
-
-
 
     private void pauseGame() {
         content.pause();

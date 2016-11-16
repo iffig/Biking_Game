@@ -1,6 +1,5 @@
 package com.csciOOD;
 
-
 public class BouncingObject {
     // "State" Flags
 
@@ -67,7 +66,6 @@ public class BouncingObject {
 
 
     public void update(){
-
         if(y < ground_height){
             y += yVelocity;
         }
@@ -85,7 +83,6 @@ public class BouncingObject {
             x -= (xVelocity/2);
         }
 
-
         //   If we hit a wall...
         if (wallWasHit()) {
             // reverse direction
@@ -98,7 +95,5 @@ public class BouncingObject {
         if (ceilOrFloorWasHit()) {
             yVelocity = -yVelocity;
         }
-
     }
-
 }
