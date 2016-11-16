@@ -4,15 +4,15 @@ package com.csciOOD;
 public class BouncingObject {
     // "State" Flags
 
+    public boolean isCollision = false;
     public boolean isSpeedingUp = false;
     public boolean isSlowingDown = false;
-    public boolean isDucking = false;
 
     // Starting Position
     public float x = 50;
     public float y = 600;
 
-
+    public float start_position = 50;
     public float ground_height = 600;
 
 
@@ -22,7 +22,7 @@ public class BouncingObject {
     public int original_height = 42;
 
     // Rates of Movement
-    public float speed = 2;
+    //public float speed = 2;
     public float xVelocity = 2;
     public float yVelocity = 2;
     public float maxXVelocity = 5;
@@ -75,9 +75,10 @@ public class BouncingObject {
         if(isSpeedingUp){
             /* So we don't go too fast -- Must fix
             if(xVelocity < maxXVelocity){
-                xVelocity += 1;
+                xVelocity += (xVelocity/2);
             }
             */
+            //Add incremental speed values
             x += (xVelocity/2);
         }
         if(isSlowingDown){
@@ -91,6 +92,7 @@ public class BouncingObject {
             xVelocity = -xVelocity;
             //x = width / 2;
             //x = width/2;
+
         }
         //This shouldn't happen
         if (ceilOrFloorWasHit()) {
