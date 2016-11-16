@@ -44,6 +44,7 @@ src/.idea/mongoSettings.xml
 # IntelliJ
 /out/
 
+src/out/
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
