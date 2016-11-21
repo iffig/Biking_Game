@@ -3,7 +3,6 @@ package com.csciOOD;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import com.csciOOD.Game;
 import com.csciOOD.Menu;
@@ -57,6 +56,27 @@ public class Screen extends JFrame {
                 if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_ESCAPE){
                     pauseGame();
                 }
+                if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    content.demoRect.isSlowingDown = false;
+                    content.demoRect.isSpeedingUp = true;
+
+                }
+                if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_LEFT){
+                    //Have actual objects in frame move faster?
+                    content.demoRect.isSpeedingUp = false;
+                    content.demoRect.isSlowingDown = true;
+                    ;
+                }
+                if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_UP){
+                    content.demoRect.jump();
+                }
+                if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_DOWN){
+                    content.demoRect.duck();
+                }
+                if (e.getID() == KeyEvent.KEY_RELEASED && e.getKeyCode() == KeyEvent.VK_DOWN){
+                    content.demoRect.unDuck();
+                }
+
                 return false;
             }
         });
