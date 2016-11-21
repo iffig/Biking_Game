@@ -6,12 +6,17 @@ import java.awt.*;
 import com.csciOOD.BouncingObject;
 
 public class Game extends JPanel implements Runnable {
-    private BouncingObject demoRect = new BouncingObject();
+    //Can i make this Public?
+    public BouncingObject demoRect = new BouncingObject();
+    public Obstacle demoObst = new Obstacle();
+
     float interpolation;
 
     // Top-level state for control flow
     private boolean gameRunning = true;
     private boolean isPaused = false;
+
+    JPanel panel = new JPanel();
 
     public Game() {
         setOpaque(true);
@@ -50,12 +55,18 @@ public class Game extends JPanel implements Runnable {
     // Any methods that change game state in here
     public void updateGame() {
         demoRect.update();
+        demoObst.update();
     }
 
     public void paintComponent(Graphics g){
-        // This is where we invoke the interpolation values to blend animation
+        //May be beneficial to move elsewhere
         g.drawRect((int) demoRect.x, (int) demoRect.y, demoRect.width, demoRect.height);
-        g.setColor(Color.RED);
+        g.setColor(Color.PINK);
         g.fillRect((int) demoRect.x, (int) demoRect.y, demoRect.width, demoRect.height);
+
+        //Needs to be in "factory"
+        g.drawRect((int) demoObst.x, (int) demoObst.y, demoObst.width, demoObst.height);
+        g.setColor(Color.BLUE);
+        g.fillRect((int) demoObst.x, (int) demoObst.y, demoObst.width, demoObst.height);
     }
 }
