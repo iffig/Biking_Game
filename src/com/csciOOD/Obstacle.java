@@ -8,8 +8,6 @@ public class Obstacle {
     public float y = 600;
 
 
-
-
     // Character Specs
     public int width = 42;
     public int height = 42;
