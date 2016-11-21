@@ -3,11 +3,9 @@ package com.csciOOD;
 import javax.swing.*;
 import java.awt.*;
 
-import com.csciOOD.BouncingObject;
-
 public class Game extends JPanel implements Runnable {
     //Can i make this Public?
-    public BouncingObject demoRect = new BouncingObject();
+    public Sprite sprite = new Sprite();
     public Obstacle demoObst = new Obstacle();
 
     float interpolation;
@@ -54,15 +52,15 @@ public class Game extends JPanel implements Runnable {
 
     // Any methods that change game state in here
     public void updateGame() {
-        demoRect.update();
+        sprite.update();
         demoObst.update();
     }
 
     public void paintComponent(Graphics g){
         //May be beneficial to move elsewhere
-        g.drawRect((int) demoRect.x, (int) demoRect.y, demoRect.width, demoRect.height);
+        g.drawRect((int) sprite.x, (int) sprite.y, sprite.width, sprite.height);
         g.setColor(Color.PINK);
-        g.fillRect((int) demoRect.x, (int) demoRect.y, demoRect.width, demoRect.height);
+        g.fillRect((int) sprite.x, (int) sprite.y, sprite.width, sprite.height);
 
         //Needs to be in "factory"
         g.drawRect((int) demoObst.x, (int) demoObst.y, demoObst.width, demoObst.height);
