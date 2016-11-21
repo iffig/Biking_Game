@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+import com.csciOOD.Game;
+import com.csciOOD.Menu;
+
 public class Screen extends JFrame {
     // Settings for window
     private JLayeredPane basePane = new JLayeredPane();
@@ -46,7 +49,6 @@ public class Screen extends JFrame {
         gameScreen.setVisible(true);
     }
 
-    //Move to new class?
     private void bindKeys(){
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
             @Override
@@ -55,30 +57,24 @@ public class Screen extends JFrame {
                     pauseGame();
                 }
                 if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_RIGHT){
-                    content.sprite.isSlowingDown = false;
-                    content.sprite.isSpeedingUp = true;
-                }
-                if (e.getID() == KeyEvent.KEY_RELEASED && e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    content.demoRect.isSlowingDown = false;
+                    content.demoRect.isSpeedingUp = true;
 
-                    content.sprite.isSpeedingUp = false;
-                    content.sprite.isNaturalSlow = true;
                 }
                 if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_LEFT){
-
-                    content.sprite.isSpeedingUp = false;
-                    content.sprite.isSlowingDown = true;
-
+                    //Have actual objects in frame move faster?
+                    content.demoRect.isSpeedingUp = false;
+                    content.demoRect.isSlowingDown = true;
+                    ;
                 }
                 if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_UP){
-
-                    content.sprite.jump();
+                    content.demoRect.jump();
                 }
                 if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_DOWN){
-
-                    content.sprite.duck();
+                    content.demoRect.duck();
                 }
                 if (e.getID() == KeyEvent.KEY_RELEASED && e.getKeyCode() == KeyEvent.VK_DOWN){
-                    content.sprite.unDuck();
+                    content.demoRect.unDuck();
                 }
 
                 return false;
