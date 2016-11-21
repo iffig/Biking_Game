@@ -1,29 +1,16 @@
 package com.csciOOD;
 
-public class Sprite {
+public class BouncingObject {
     // "State" Flags
 
-    public boolean isNaturalSlow = false;
+    public boolean isCollision = false;
     public boolean isSpeedingUp = false;
     public boolean isSlowingDown = false;
-
-    // Rates of Movement
-    public float xVelocity = 5;
-    public float yVelocity = 2;
-
-    // isNaturalSlow
-    public double naturalSlowSpeed = 0.75;
-
-    // isSpeedingUp
-    public float speedUp = xVelocity/2;
-
-
-    //isSlowingDown
-    public float slowSpeed = (xVelocity/2);
 
     // Starting Position
     public float x = 50;
     public float y = 600;
+
     public float start_position = 50;
     public float ground_height = 600;
 
@@ -32,12 +19,18 @@ public class Sprite {
     public int width = 42;
     public int height = 42;
     public int original_height = 42;
-    public int duck_height = 21;
+
+    // Rates of Movement
+    //public float speed = 2;
+    public float xVelocity = 2;
+    public float yVelocity = 2;
+    public float maxXVelocity = 5;
 
     // Jump Specs
+
     public float jump_height = 400;
 
-    public Sprite(){}
+    public BouncingObject(){}
 
 
     private boolean wallWasHit(){
@@ -58,12 +51,12 @@ public class Sprite {
 
     public void jump(){
         while(y > jump_height)
-            y = y-1;
-    }
+            y = y-5;
 
+    }
     public void duck(){
-        height = duck_height;
-        y = ground_height + duck_height;
+        height = original_height / 2;
+        y = ground_height + (original_height / 2);
     }
 
     public void unDuck(){
@@ -71,44 +64,33 @@ public class Sprite {
         height = original_height;
     }
 
-    public void sendToStart(){
-        if(x > start_position){
-          isSlowingDown = true;
-        }
-        if(x < start_position){
-            isSpeedingUp = true;
-        }
-    }
 
     public void update(){
-        //Falling Motion
         if(y < ground_height){
             y += yVelocity;
         }
 
-        if(isNaturalSlow){
-            if(x > start_position){
-                x -= naturalSlowSpeed;
-            }
-        }
-
         if(isSpeedingUp){
-
-            x += speedUp;
+            /* So we don't go too fast -- Must fix
+            if(xVelocity < maxXVelocity){
+                xVelocity += (xVelocity/2);
+            }
+            */
+            //Add incremental speed values
+            x += (xVelocity/2);
         }
-
         if(isSlowingDown){
-            x -= slowSpeed;
+            x -= (xVelocity/2);
         }
 
         //   If we hit a wall...
         if (wallWasHit()) {
             // reverse direction
-            //xVelocity = -xVelocity;
-            sendToStart();
+            xVelocity = -xVelocity;
+            //x = width / 2;
+            //x = width/2;
 
         }
-
         //This shouldn't happen
         if (ceilOrFloorWasHit()) {
             yVelocity = -yVelocity;
