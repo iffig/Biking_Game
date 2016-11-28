@@ -1,6 +1,12 @@
 package com.csciOOD;
 
-public class Sprite {
+import javax.swing.*;
+import java.awt.*;
+
+public class Sprite extends JPanel {
+
+    //Graphics g;
+
     // "State" Flags
 
     public boolean isNaturalSlow = false;
@@ -71,47 +77,42 @@ public class Sprite {
         height = original_height;
     }
 
-    public void sendToStart(){
-        if(x > start_position){
-          isSlowingDown = true;
-        }
-        if(x < start_position){
-            isSpeedingUp = true;
-        }
+    public void drawSprite(Graphics g){
+
+        g.drawRect((int) x, (int) y, width, height);
+        g.setColor(Color.PINK);
+        g.fillRect((int) x, (int) y, width, height);
+
     }
 
-    public void update(){
+    public void update() {
         //Falling Motion
-        if(y < ground_height){
+        if (y < ground_height) {
             y += yVelocity;
         }
 
-        if(isNaturalSlow){
-            if(x > start_position){
+        if (isNaturalSlow) {
+            if (x > start_position) {
                 x -= naturalSlowSpeed;
             }
         }
 
-        if(isSpeedingUp){
+        if (isSpeedingUp) {
 
             x += speedUp;
         }
 
-        if(isSlowingDown){
+        if (isSlowingDown) {
             x -= slowSpeed;
         }
 
         //   If we hit a wall...
         if (wallWasHit()) {
             // reverse direction
-            //xVelocity = -xVelocity;
-            sendToStart();
+            xVelocity = -xVelocity;
 
         }
 
-        //This shouldn't happen
-        if (ceilOrFloorWasHit()) {
-            yVelocity = -yVelocity;
-        }
     }
+
 }

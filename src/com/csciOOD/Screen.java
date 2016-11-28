@@ -10,7 +10,7 @@ public class Screen extends JFrame {
     private Container contentPane = getContentPane();
     // Top-level object responsible for game state and rendering
     private Game content = new Game();
-    // Pause, menu, high-schores
+    // Pause, menu, high-scores
     private Menu menu = new Menu(contentPane);
     // Area for score/timer/heath etc
     JPanel headerPanel = new JPanel();
@@ -90,4 +90,6 @@ public class Screen extends JFrame {
         content.pause();
         menu.toggle();
     }
+
+
 }

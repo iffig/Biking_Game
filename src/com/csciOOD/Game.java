@@ -2,11 +2,12 @@ package com.csciOOD;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class Game extends JPanel implements Runnable {
-    //Can i make this Public?
+
     public Sprite sprite = new Sprite();
-    public Obstacle demoObst = new Obstacle();
+
 
     float interpolation;
 
@@ -49,22 +50,26 @@ public class Game extends JPanel implements Runnable {
             }
         }
     }
+    //Create new Obstacles at Random
+
+    ObstacleFactory obstFact = new ObstacleFactory();
+
+    Obstacle obst = obstFact.getObstacle("frog");
+
+
 
     // Any methods that change game state in here
     public void updateGame() {
         sprite.update();
-        demoObst.update();
+        obst.update();
+
     }
+
 
     public void paintComponent(Graphics g){
-        //May be beneficial to move elsewhere
-        g.drawRect((int) sprite.x, (int) sprite.y, sprite.width, sprite.height);
-        g.setColor(Color.PINK);
-        g.fillRect((int) sprite.x, (int) sprite.y, sprite.width, sprite.height);
+        sprite.drawSprite(g);
+        obst.create(g);
 
-        //Needs to be in "factory"
-        g.drawRect((int) demoObst.x, (int) demoObst.y, demoObst.width, demoObst.height);
-        g.setColor(Color.BLUE);
-        g.fillRect((int) demoObst.x, (int) demoObst.y, demoObst.width, demoObst.height);
     }
+
 }
