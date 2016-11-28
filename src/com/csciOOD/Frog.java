@@ -4,6 +4,7 @@ import java.awt.*;
 
 public class Frog implements Obstacle{
 
+
     float x = start_position;
     float y = ground_height;
 
@@ -22,7 +23,6 @@ public class Frog implements Obstacle{
     public void update(){
 
         x -= velocity;
-
 
     }
 

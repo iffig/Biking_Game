@@ -5,8 +5,6 @@ import java.awt.*;
 
 public class Sprite extends JPanel {
 
-    //Graphics g;
-
     // "State" Flags
 
     public boolean isNaturalSlow = false;
@@ -32,6 +30,7 @@ public class Sprite extends JPanel {
     public float y = 600;
     public float start_position = 50;
     public float ground_height = 600;
+    public float right_boundary = 750;
 
 
     // Character Specs
@@ -85,8 +84,13 @@ public class Sprite extends JPanel {
 
     }
 
+
     public void update() {
         //Falling Motion
+        if (x > right_boundary) {
+            x = right_boundary;
+        }
+
         if (y < ground_height) {
             y += yVelocity;
         }
@@ -94,6 +98,9 @@ public class Sprite extends JPanel {
         if (isNaturalSlow) {
             if (x > start_position) {
                 x -= naturalSlowSpeed;
+            }
+            if (x < start_position) {
+                x = start_position;
             }
         }
 
@@ -104,13 +111,6 @@ public class Sprite extends JPanel {
 
         if (isSlowingDown) {
             x -= slowSpeed;
-        }
-
-        //   If we hit a wall...
-        if (wallWasHit()) {
-            // reverse direction
-            xVelocity = -xVelocity;
-
         }
 
     }

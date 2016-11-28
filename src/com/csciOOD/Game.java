@@ -50,13 +50,9 @@ public class Game extends JPanel implements Runnable {
             }
         }
     }
-    //Create new Obstacles at Random
 
     ObstacleFactory obstFact = new ObstacleFactory();
-
-    Obstacle obst = obstFact.getObstacle("frog");
-
-
+    Obstacle obst = obstFact.getObstacle();
 
     // Any methods that change game state in here
     public void updateGame() {
@@ -64,7 +60,6 @@ public class Game extends JPanel implements Runnable {
         obst.update();
 
     }
-
 
     public void paintComponent(Graphics g){
         sprite.drawSprite(g);

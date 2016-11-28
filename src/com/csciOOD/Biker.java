@@ -14,7 +14,7 @@ public class Biker implements Obstacle{
     @Override
     public void create(Graphics g){
         g.drawRect((int) x, (int) y, width, height);
-        g.setColor(Color.GREEN);
+        g.setColor(Color.BLACK);
         g.fillRect((int) x, (int) y, width, height);
     }
 
