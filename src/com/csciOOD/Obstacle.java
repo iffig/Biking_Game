@@ -2,9 +2,10 @@ package com.csciOOD;
 
 import java.awt.Graphics;
 
-public interface Obstacle {
+interface Obstacle {
+
     float ground_height = 600;
-    float fly_height = 400;
+    float fly_height = 500;
 
     float start_position = 800;
 
@@ -15,5 +16,6 @@ public interface Obstacle {
 
     void create(Graphics G);
     void update();
+    boolean getIsOnScreen();
 
 }

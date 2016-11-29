@@ -20,7 +20,7 @@ public class Screen extends JFrame {
         // Not TOTALLY sure how much this does for us...
         super("Colorado Biking Game");
         setSize(800, 800);
-        // Make sure we can repond to keyboard input
+        // Make sure we can respond to keyboard input
         bindKeys();
         // Settings for window
         setLayout(new BorderLayout());
@@ -90,6 +90,4 @@ public class Screen extends JFrame {
         content.pause();
         menu.toggle();
     }
-
-
 }

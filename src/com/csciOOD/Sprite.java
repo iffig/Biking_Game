@@ -10,9 +10,10 @@ public class Sprite extends JPanel {
     public boolean isNaturalSlow = false;
     public boolean isSpeedingUp = false;
     public boolean isSlowingDown = false;
+    public boolean isJumpingUp = false;
 
     // Rates of Movement
-    public float xVelocity = 5;
+    public float xVelocity = 6;
     public float yVelocity = 2;
 
     // isNaturalSlow
@@ -34,10 +35,10 @@ public class Sprite extends JPanel {
 
 
     // Character Specs
-    public int width = 42;
-    public int height = 42;
-    public int original_height = 42;
-    public int duck_height = 21;
+    public int width = 50;
+    public int height = 50;
+    public int original_height = 50;
+    public int duck_height = (original_height/2);
 
     // Jump Specs
     public float jump_height = 400;
@@ -63,7 +64,7 @@ public class Sprite extends JPanel {
 
     public void jump(){
         while(y > jump_height)
-            y = y-1;
+            y -=yVelocity;
     }
 
     public void duck(){
@@ -77,20 +78,24 @@ public class Sprite extends JPanel {
     }
 
     public void drawSprite(Graphics g){
-
+        g.setColor(Color.GRAY);
         g.drawRect((int) x, (int) y, width, height);
-        g.setColor(Color.PINK);
+        g.setColor(Color.GRAY);
         g.fillRect((int) x, (int) y, width, height);
 
     }
 
 
     public void update() {
-        //Falling Motion
+        //Boundaries
         if (x > right_boundary) {
             x = right_boundary;
         }
+        if (x < start_position) {
+            x = start_position;
+        }
 
+        //Falling Motion
         if (y < ground_height) {
             y += yVelocity;
         }

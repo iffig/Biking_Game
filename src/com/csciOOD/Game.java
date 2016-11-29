@@ -51,13 +51,27 @@ public class Game extends JPanel implements Runnable {
         }
     }
 
+    public boolean obstacleOnScreen = false;
+
     ObstacleFactory obstFact = new ObstacleFactory();
-    Obstacle obst = obstFact.getObstacle();
+    Obstacle obst;
 
     // Any methods that change game state in here
     public void updateGame() {
+
         sprite.update();
-        obst.update();
+
+        // Obstacle Updates
+        if(obstacleOnScreen == false ){
+            obst = obstFact.getObstacle();
+            obstacleOnScreen = true;
+        }
+        if(obst.getIsOnScreen() == true){
+            obst.update();
+        }
+        if(obst.getIsOnScreen() == false){
+            obstacleOnScreen = false;
+        }
 
     }
 
