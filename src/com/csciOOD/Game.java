@@ -2,13 +2,12 @@ package com.csciOOD;
 
 import javax.swing.*;
 import java.awt.*;
-
-import com.csciOOD.BouncingObject;
+import java.util.Random;
 
 public class Game extends JPanel implements Runnable {
-    //Can i make this Public?
-    public BouncingObject demoRect = new BouncingObject();
-    public Obstacle demoObst = new Obstacle();
+
+    public Sprite sprite = new Sprite();
+
 
     float interpolation;
 
@@ -52,21 +51,34 @@ public class Game extends JPanel implements Runnable {
         }
     }
 
+    public boolean obstacleOnScreen = false;
+
+    ObstacleFactory obstFact = new ObstacleFactory();
+    Obstacle obst;
+
     // Any methods that change game state in here
     public void updateGame() {
-        demoRect.update();
-        demoObst.update();
+
+        sprite.update();
+
+        // Obstacle Updates
+        if(obstacleOnScreen == false ){
+            obst = obstFact.getObstacle();
+            obstacleOnScreen = true;
+        }
+        if(obst.getIsOnScreen() == true){
+            obst.update();
+        }
+        if(obst.getIsOnScreen() == false){
+            obstacleOnScreen = false;
+        }
+
     }
 
     public void paintComponent(Graphics g){
-        //May be beneficial to move elsewhere
-        g.drawRect((int) demoRect.x, (int) demoRect.y, demoRect.width, demoRect.height);
-        g.setColor(Color.PINK);
-        g.fillRect((int) demoRect.x, (int) demoRect.y, demoRect.width, demoRect.height);
+        sprite.drawSprite(g);
+        obst.create(g);
 
-        //Needs to be in "factory"
-        g.drawRect((int) demoObst.x, (int) demoObst.y, demoObst.width, demoObst.height);
-        g.setColor(Color.BLUE);
-        g.fillRect((int) demoObst.x, (int) demoObst.y, demoObst.width, demoObst.height);
     }
+
 }
