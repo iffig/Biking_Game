@@ -1,6 +1,6 @@
 package com.csciOOD;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 interface Obstacle {
 
@@ -17,5 +17,7 @@ interface Obstacle {
     void create(Graphics G);
     void update();
     boolean getIsOnScreen();
+    void setisCollided(boolean bool);
+    Rectangle getBounds();
 
 }

@@ -7,6 +7,7 @@ public class Frog implements Obstacle{
     public boolean isOnScreen = true;
     float x = start_position;
     float y = ground_height;
+    public boolean isCollided = false;
 
     //To detect Point values
     boolean isGoodObject = false;
@@ -30,7 +31,18 @@ public class Frog implements Obstacle{
         if(x < -width){
             isOnScreen = false;
         }
-
+        if(isCollided){
+            isOnScreen = false;
+            isCollided = false;
+        }
     }
 
+    @Override
+    public Rectangle getBounds() {
+        return new Rectangle((int)x,(int)y, width, height);
+    }
+
+    public void setisCollided(boolean bool) {
+        isCollided = bool;
+    }
 }
