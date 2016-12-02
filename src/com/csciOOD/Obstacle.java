@@ -14,6 +14,9 @@ interface Obstacle {
 
     float velocity = 1;
 
+    boolean getisGood();
+    int getpointValue();
+
     void create(Graphics G);
     void update();
     boolean getIsOnScreen();
