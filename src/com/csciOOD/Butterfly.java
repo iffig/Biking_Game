@@ -7,6 +7,7 @@ public class Butterfly implements Obstacle{
     public boolean isOnScreen = true;
     float x = start_position;
     float y = fly_height;
+    public boolean isCollided = false;
 
     //To detect Point values
     boolean isGoodObject = true;
@@ -30,7 +31,20 @@ public class Butterfly implements Obstacle{
         if(x < -width){
             isOnScreen = false;
         }
+        if(isCollided){
+            isOnScreen = false;
+            isCollided = false;
+        }
+    }
 
+    @Override
+    public Rectangle getBounds() {
+        return new Rectangle((int)x,(int)y, width, height);
+    }
+
+
+    public void setisCollided(boolean bool) {
+        isCollided = bool;
     }
 
 }
