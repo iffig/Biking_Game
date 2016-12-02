@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+import java.awt.Container;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 public class Screen extends JFrame {
     // Settings for window
     private JLayeredPane basePane = new JLayeredPane();
@@ -14,6 +18,7 @@ public class Screen extends JFrame {
     private Menu menu = new Menu(contentPane);
     // Area for score/timer/heath etc
     JPanel headerPanel = new JPanel();
+
 
     // JFrame is our top-level container, inside of which we render panes
     public Screen(){
@@ -34,6 +39,7 @@ public class Screen extends JFrame {
         basePane.add(headerPanel, new Integer(1));
         basePane.add(content, new Integer(0));
         basePane.add(menu, new Integer(2));
+
 
         // Start our gameLoop from our Main Game object
         Thread mainThread = new Thread(content);

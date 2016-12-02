@@ -9,6 +9,17 @@ public class Butterfly implements Obstacle{
     float y = fly_height;
     public boolean isCollided = false;
 
+
+    @Override
+    public boolean getisGood() {
+        return isGoodObject;
+    }
+
+    @Override
+    public int getpointValue() {
+        return pointValue;
+    }
+
     //To detect Point values
     boolean isGoodObject = true;
     int pointValue = 75;
