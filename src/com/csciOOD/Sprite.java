@@ -46,6 +46,11 @@ public class Sprite extends JPanel {
     public Sprite(){}
 
 
+    public Rectangle getBounds() {
+        return new Rectangle((int)x,(int)y, width, height);
+    }
+
+
     private boolean wallWasHit(){
         boolean rightWallHit = x + (width / 2) >= 800;
         boolean leftWallHit = x - (width / 2) <= 0;

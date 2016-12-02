@@ -14,6 +14,8 @@ public class Game extends JPanel implements Runnable {
     // Top-level state for control flow
     private boolean gameRunning = true;
     private boolean isPaused = false;
+    // Collision state boolean variable
+    private boolean isCollision = false;
 
     JPanel panel = new JPanel();
 
@@ -72,13 +74,22 @@ public class Game extends JPanel implements Runnable {
         if(obst.getIsOnScreen() == false){
             obstacleOnScreen = false;
         }
+        if (isCollision) {
+            // If a collision has happened. Do this code.
+            obst.setisCollided(true);
+        }
 
+        isCollision = checkCollision();
     }
 
     public void paintComponent(Graphics g){
+        g.clearRect(0,0,getWidth(), getHeight() );
         sprite.drawSprite(g);
         obst.create(g);
 
     }
 
+    public boolean checkCollision() {
+        return obst.getBounds().intersects(sprite.getBounds());
+    }
 }
