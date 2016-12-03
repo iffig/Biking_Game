@@ -5,6 +5,8 @@ import java.awt.*;
 public class ScoreTracker implements Tracker {
     int score = 0;
 
+    public int getScore(){return score;}
+
     @Override
     public void increment(int pointValue) {
         score += pointValue;
