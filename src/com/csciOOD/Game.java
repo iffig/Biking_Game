@@ -75,17 +75,6 @@ public class Game extends JPanel implements Runnable {
 
         sprite.update();
 
-        // Obstacle Updates
-        if(obstacleOnScreen == false ){
-            obst = obstFact.getObstacle();
-            obstacleOnScreen = true;
-        }
-        if(obst.getIsOnScreen() == true){
-            obst.update();
-        }
-        if(obst.getIsOnScreen() == false){
-            obstacleOnScreen = false;
-        }
         if (isCollision) {
             // If a collision has happened. Do this code.
             obst.setisCollided(true);
@@ -103,7 +92,20 @@ public class Game extends JPanel implements Runnable {
             obstacleOnScreen = true;
         }
 
+        // Obstacle Updates
+        if(obstacleOnScreen == false ){
+            obst = obstFact.getObstacle();
+            obstacleOnScreen = true;
+        }
+        if(obst.getIsOnScreen() == true){
+            obst.update();
+        }
+        if(obst.getIsOnScreen() == false){
+            obstacleOnScreen = false;
+        }
+
         isCollision = checkCollision();
+
     }
 
     public void paintComponent(Graphics g){
