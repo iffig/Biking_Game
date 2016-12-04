@@ -6,11 +6,9 @@ import java.awt.*;
 public class Sprite extends JPanel {
 
     // "State" Flags
-
     public boolean isNaturalSlow = false;
     public boolean isSpeedingUp = false;
     public boolean isSlowingDown = false;
-    public boolean isJumpingUp = false;
 
     // Rates of Movement
     public float xVelocity = 6;
@@ -48,21 +46,6 @@ public class Sprite extends JPanel {
 
     public Rectangle getBounds() {
         return new Rectangle((int)x,(int)y, width, height);
-    }
-
-
-    private boolean wallWasHit(){
-        boolean rightWallHit = x + (width / 2) >= 800;
-        boolean leftWallHit = x - (width / 2) <= 0;
-
-        return leftWallHit || rightWallHit;
-    }
-
-    private boolean ceilOrFloorWasHit(){
-        boolean ceilingHit = y + (height / 2) >= 800;
-        boolean floorHit = y - (height / 2) <= 0;
-
-        return ceilingHit || floorHit;
     }
 
     // Movement Functionality

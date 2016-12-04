@@ -42,23 +42,44 @@ public class Game extends JPanel implements Runnable {
     }
 
     // TODO: mitigate death spiral and lag scenarios
+    // CPU saver and smoothing tips inspired by http://www.java-gaming.org/index.php?PHPSESSID=0l3msuh17hfkam8a8kbr904ck1&/topic,24220.0
     private void gameLoop() {
-        // Shoot for the Stars!
-        double fpsLimit = 120;
-        double updateInterval = 1000000000 / fpsLimit; // Should / could be set to something else. Lower? higher?
+        double hertz = 30.0;
+        double updateInterval = 1000000000 / hertz;
         double lastUpdateTime = System.nanoTime();
 
-        while (gameRunning) {
-            double now = System.nanoTime();
-            if (!isPaused) {
+        double fpsLimit = 60;
+        double renderInterval = 1000000000 / fpsLimit;
+        double lastRenderTime = System.nanoTime();
 
-                while(now - lastUpdateTime > updateInterval) {
+        int updatesInRenderLimit = 5;
+
+        while (gameRunning) {
+            if (!isPaused) {
+                double now = System.nanoTime();
+                int updateCount = 0;
+
+                while(now - lastUpdateTime > updateInterval && updateCount < updatesInRenderLimit) {
                     lastUpdateTime += updateInterval;
+                    updateCount++;
                     updateGame();
                 }
 
                 repaint();
+
+                //Yield until it has been at least the target time between renders. This saves the CPU from hogging.
+                while ( now - lastRenderTime < renderInterval && now - lastUpdateTime < updateInterval) {
+                    Thread.yield();
+
+                    try {Thread.sleep(1);} catch(Exception e) {}
+
+                    now = System.nanoTime();
+                }
+            } else {
+                lastUpdateTime = System.nanoTime();
+                lastRenderTime = System.nanoTime();
             }
+
             if(gameOver){
                 repaint();
             }
