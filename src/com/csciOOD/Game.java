@@ -39,7 +39,7 @@ public class Game extends JPanel implements Runnable {
     }
 
     // TODO: mitigate death spiral and lag scenarios
-    private void gameLoop() {
+    private void gameLoop(){
         // Shoot for the Stars!
         double fpsLimit = 120;
         double updateInterval = 1000000000 / fpsLimit; // Should / could be set to something else. Lower? higher?
