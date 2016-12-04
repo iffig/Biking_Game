@@ -22,6 +22,8 @@ public class Game extends JPanel implements Runnable {
     private boolean isPaused = false;
     // Collision state boolean variable
     private boolean isCollision = false;
+    // Boolean to say game is over
+    public boolean gameOver = false;
 
     JPanel panel = new JPanel();
 
@@ -56,6 +58,9 @@ public class Game extends JPanel implements Runnable {
 
                 repaint();
             }
+            if(gameOver){
+                repaint();
+            }
         }
     }
 
@@ -69,17 +74,6 @@ public class Game extends JPanel implements Runnable {
 
         sprite.update();
 
-        // Obstacle Updates
-        if(obstacleOnScreen == false ){
-            obst = obstFact.getObstacle();
-            obstacleOnScreen = true;
-        }
-        if(obst.getIsOnScreen() == true){
-            obst.update();
-        }
-        if(obst.getIsOnScreen() == false){
-            obstacleOnScreen = false;
-        }
         if (isCollision) {
             // If a collision has happened. Do this code.
             obst.setisCollided(true);
@@ -91,10 +85,26 @@ public class Game extends JPanel implements Runnable {
                 damage.decrement(obst.getpointValue());
                 score.decrement(obst.getpointValue());
             }
+        }
+        if(damage.getIsGameOver()){
+            gameOver = true;
+            obstacleOnScreen = true;
+        }
 
+        // Obstacle Updates
+        if(obstacleOnScreen == false ){
+            obst = obstFact.getObstacle();
+            obstacleOnScreen = true;
+        }
+        if(obst.getIsOnScreen() == true){
+            obst.update();
+        }
+        if(obst.getIsOnScreen() == false){
+            obstacleOnScreen = false;
         }
 
         isCollision = checkCollision();
+
     }
 
     public void paintComponent(Graphics g){
@@ -106,10 +116,13 @@ public class Game extends JPanel implements Runnable {
         g.setColor(trackColor);
         g.fillRect(0, 550, 800, 150);
 
+
+
         score.painting(g);
         damage.painting(g);
         sprite.drawSprite(g);
         obst.create(g);
+
     }
 
     public boolean checkCollision() {
