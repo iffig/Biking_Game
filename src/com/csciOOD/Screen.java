@@ -13,9 +13,9 @@ public class Screen extends JFrame {
     private JLayeredPane basePane = new JLayeredPane();
     private Container contentPane = getContentPane();
     // Top-level object responsible for game state and rendering
-    private Game content = new Game();
+    private static Game content = new Game();
     // Pause, menu, high-scores
-    private Menu menu = new Menu(contentPane);
+    private Menu menu = new Menu();
     // Area for score/timer/heath etc
     JPanel headerPanel = new JPanel();
 
@@ -44,6 +44,7 @@ public class Screen extends JFrame {
         // Start our gameLoop from our Main Game object
         Thread mainThread = new Thread(content);
         mainThread.start();
+
     }
 
     public static void main(String[] args) {

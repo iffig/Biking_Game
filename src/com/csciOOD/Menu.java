@@ -13,7 +13,7 @@ public class Menu extends JPanel {
 
     private boolean isHidden = true;
 
-    public Menu(Container contentPane) {
+    public Menu() {
         setBackground(new Color(80, 80, 240, 200));
         setBounds(x, y, width, height);
 

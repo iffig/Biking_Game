@@ -8,6 +8,11 @@ import static com.csciOOD.Obstacle.width;
 public class DamageTracker implements Tracker {
 
     int damageTracker = 100;
+    boolean isGameOver = false;
+
+    public boolean getIsGameOver(){
+        return isGameOver;
+    }
 
     @Override
     public void increment(int pointValue) {
@@ -17,6 +22,9 @@ public class DamageTracker implements Tracker {
     @Override
     public void decrement(int pointValue) {
         damageTracker --;
+        if(damageTracker <= 0){
+            isGameOver = true;
+        }
 
     }
 
