@@ -44,7 +44,7 @@ public class Game extends JPanel implements Runnable {
     // TODO: mitigate death spiral and lag scenarios
     // CPU saver and smoothing tips inspired by http://www.java-gaming.org/index.php?PHPSESSID=0l3msuh17hfkam8a8kbr904ck1&/topic,24220.0
     private void gameLoop() {
-        double hertz = 30.0;
+        double hertz = 120.0;
         double updateInterval = 1000000000 / hertz;
         double lastUpdateTime = System.nanoTime();
 

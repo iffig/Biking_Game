@@ -15,7 +15,7 @@ public class Screen extends JFrame {
     // Top-level object responsible for game state and rendering
     private static Game content = new Game();
     // Pause, menu, high-scores
-    private Menu menu = new Menu();
+    private Menu menu = new Menu(content);
     // Area for score/timer/heath etc
     JPanel headerPanel = new JPanel();
 
