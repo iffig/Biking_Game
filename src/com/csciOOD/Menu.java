@@ -54,10 +54,6 @@ public class Menu extends JPanel implements ActionListener {
             case "save":
                 System.out.println("The game was SAVED!");
                 break;
-            case "resume":
-                gameInstance.pause();
-                toggle();
-                break;
             case "end":
                 System.exit(0);
         }
