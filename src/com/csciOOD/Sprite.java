@@ -28,16 +28,16 @@ public class Sprite extends JPanel {
 
     // Starting Position
     public float x = 50;
-    public float y = 525;
+    public float y = 600;
     public float start_position = 50;
-    public float ground_height = 525;
+    public float ground_height = 600;
     public float right_boundary = 750;
 
 
     // Character Specs
-    public int width = 100;
-    public int height = 100;
-    public int original_height = height;
+    public int width = 50;
+    public int height = 50;
+    public int original_height = 50;
     public int duck_height = (original_height/2);
 
     // Jump Specs

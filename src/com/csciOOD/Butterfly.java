@@ -6,7 +6,7 @@ public class Butterfly implements Obstacle{
 
     public boolean isOnScreen = true;
     float x = start_position;
-    float y = fly_height - 50;
+    float y = fly_height;
     public boolean isCollided = false;
 
 
