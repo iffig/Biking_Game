@@ -6,11 +6,9 @@ import java.awt.*;
 public class Sprite extends JPanel {
 
     // "State" Flags
-
     public boolean isNaturalSlow = false;
     public boolean isSpeedingUp = false;
     public boolean isSlowingDown = false;
-    public boolean isJumpingUp = false;
 
     // Rates of Movement
     public float xVelocity = 6;
@@ -28,16 +26,16 @@ public class Sprite extends JPanel {
 
     // Starting Position
     public float x = 50;
-    public float y = 600;
+    public float y = 525;
     public float start_position = 50;
-    public float ground_height = 600;
+    public float ground_height = 525;
     public float right_boundary = 750;
 
 
     // Character Specs
-    public int width = 50;
-    public int height = 50;
-    public int original_height = 50;
+    public int width = 100;
+    public int height = 100;
+    public int original_height = height;
     public int duck_height = (original_height/2);
 
     // Jump Specs
@@ -48,21 +46,6 @@ public class Sprite extends JPanel {
 
     public Rectangle getBounds() {
         return new Rectangle((int)x,(int)y, width, height);
-    }
-
-
-    private boolean wallWasHit(){
-        boolean rightWallHit = x + (width / 2) >= 800;
-        boolean leftWallHit = x - (width / 2) <= 0;
-
-        return leftWallHit || rightWallHit;
-    }
-
-    private boolean ceilOrFloorWasHit(){
-        boolean ceilingHit = y + (height / 2) >= 800;
-        boolean floorHit = y - (height / 2) <= 0;
-
-        return ceilingHit || floorHit;
     }
 
     // Movement Functionality

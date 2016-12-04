@@ -9,6 +9,7 @@ public class Game extends JPanel implements Runnable {
     public Sprite sprite = new Sprite();
     public DamageTracker damage = new DamageTracker();
     public ScoreTracker score = new ScoreTracker();
+    public EndScreen endScreen = new EndScreen();
 
     //colors
     Color skyColor = new Color(153, 255, 255);
@@ -22,6 +23,8 @@ public class Game extends JPanel implements Runnable {
     private boolean isPaused = false;
     // Collision state boolean variable
     private boolean isCollision = false;
+    // Boolean to say game is over
+    public boolean gameOver = false;
 
     JPanel panel = new JPanel();
 
@@ -39,21 +42,45 @@ public class Game extends JPanel implements Runnable {
     }
 
     // TODO: mitigate death spiral and lag scenarios
-    private void gameLoop(){
-        // Shoot for the Stars!
-        double fpsLimit = 120;
-        double updateInterval = 1000000000 / fpsLimit; // Should / could be set to something else. Lower? higher?
+    // CPU saver and smoothing tips inspired by http://www.java-gaming.org/index.php?PHPSESSID=0l3msuh17hfkam8a8kbr904ck1&/topic,24220.0
+    private void gameLoop() {
+        double hertz = 120.0;
+        double updateInterval = 1000000000 / hertz;
         double lastUpdateTime = System.nanoTime();
 
-        while (gameRunning) {
-            double now = System.nanoTime();
-            if (!isPaused) {
+        double fpsLimit = 60;
+        double renderInterval = 1000000000 / fpsLimit;
+        double lastRenderTime = System.nanoTime();
 
-                while(now - lastUpdateTime > updateInterval) {
+        int updatesInRenderLimit = 5;
+
+        while (gameRunning) {
+            if (!isPaused) {
+                double now = System.nanoTime();
+                int updateCount = 0;
+
+                while(now - lastUpdateTime > updateInterval && updateCount < updatesInRenderLimit) {
                     lastUpdateTime += updateInterval;
+                    updateCount++;
                     updateGame();
                 }
 
+                repaint();
+
+                //Yield until it has been at least the target time between renders. This saves the CPU from hogging.
+                while ( now - lastRenderTime < renderInterval && now - lastUpdateTime < updateInterval) {
+                    Thread.yield();
+
+                    try {Thread.sleep(1);} catch(Exception e) {}
+
+                    now = System.nanoTime();
+                }
+            } else {
+                lastUpdateTime = System.nanoTime();
+                lastRenderTime = System.nanoTime();
+            }
+
+            if(gameOver){
                 repaint();
             }
         }
@@ -69,17 +96,6 @@ public class Game extends JPanel implements Runnable {
 
         sprite.update();
 
-        // Obstacle Updates
-        if(obstacleOnScreen == false ){
-            obst = obstFact.getObstacle();
-            obstacleOnScreen = true;
-        }
-        if(obst.getIsOnScreen() == true){
-            obst.update();
-        }
-        if(obst.getIsOnScreen() == false){
-            obstacleOnScreen = false;
-        }
         if (isCollision) {
             // If a collision has happened. Do this code.
             obst.setisCollided(true);
@@ -91,10 +107,26 @@ public class Game extends JPanel implements Runnable {
                 damage.decrement(obst.getpointValue());
                 score.decrement(obst.getpointValue());
             }
+        }
+        if(damage.getIsGameOver()){
+            gameOver = true;
+            obstacleOnScreen = true;
+        }
 
+        // Obstacle Updates
+        if(obstacleOnScreen == false ){
+            obst = obstFact.getObstacle();
+            obstacleOnScreen = true;
+        }
+        if(obst.getIsOnScreen() == true){
+            obst.update();
+        }
+        if(obst.getIsOnScreen() == false){
+            obstacleOnScreen = false;
         }
 
         isCollision = checkCollision();
+
     }
 
     public void paintComponent(Graphics g){
@@ -106,10 +138,16 @@ public class Game extends JPanel implements Runnable {
         g.setColor(trackColor);
         g.fillRect(0, 550, 800, 150);
 
-        score.painting(g);
-        damage.painting(g);
-        sprite.drawSprite(g);
-        obst.create(g);
+
+        if(gameOver){
+            endScreen.display(g,score.getScore());
+        }
+        else{
+            score.painting(g);
+            damage.painting(g);
+            sprite.drawSprite(g);
+            obst.create(g);
+        }
     }
 
     public boolean checkCollision() {
